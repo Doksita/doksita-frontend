@@ -87,7 +87,7 @@ const WorkspaceFormPage = () => {
       stopCamera();
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: {
+          video: true {
             facingMode: facing,
             width: { ideal: 1280 },
             height: { ideal: 960 },
