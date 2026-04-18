@@ -70,12 +70,12 @@ const WorkspaceFormPage = () => {
   const [facingMode, setFacingMode] = useState<"environment" | "user">(
     "environment",
   );
-  /*const videoRef = useRef<HTMLVideoElement>(null);
-  const streamRef = useRef<MediaStream | null>(null);*/
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
 
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-  /*const stopCamera = useCallback(() => {
+  const stopCamera = useCallback(() => {
     if (streamRef.current) {
       streamRef.current.getTracks().forEach((t) => t.stop());
       streamRef.current = null;
@@ -115,7 +115,7 @@ const WorkspaceFormPage = () => {
     };
   }, [cameraOpen, facingMode, startCamera, stopCamera]);
 
-/*const handleCapture = async () => {
+const handleCapture = async () => {
     if (!videoRef.current || cameraOpen === null) return;
 
     // 1. Ambil data Lokasi & Waktu
@@ -169,7 +169,7 @@ const WorkspaceFormPage = () => {
       0.9
     );
   };
-  //const handleCapture = () => {
+  /*const handleCapture = () => {
     if (!videoRef.current || cameraOpen === null) return;
     const video = videoRef.current;
     const canvas = document.createElement("canvas");
@@ -193,26 +193,6 @@ const WorkspaceFormPage = () => {
     );
   };*/
 
-{/* Ganti UI Kamera Custom dengan ini */}
-<div className="mt-4">
-  <label className="flex items-center justify-center gap-2 w-full p-4 bg-brand text-white rounded-xl font-bold cursor-pointer">
-    <span>📸 Ambil Foto dari Kamera HP</span>
-    <input 
-      type="file" 
-      accept="image/*" 
-      capture="environment" 
-      className="hidden" 
-      onChange={(e) => {
-        const file = e.target.files?.[0];
-        if (file) {
-          handlePhotoChange(cameraOpen, file); // Sesuaikan nama fungsinya
-        }
-      }} 
-    />
-  </label>
-</div>
-
-  
   useEffect(() => {
     if (isEditing && !initialState) {
       const fetchWorkspace = async () => {
