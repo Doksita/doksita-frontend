@@ -70,12 +70,12 @@ const WorkspaceFormPage = () => {
   const [facingMode, setFacingMode] = useState<"environment" | "user">(
     "environment",
   );
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const streamRef = useRef<MediaStream | null>(null);
+  /*const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);*/
 
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-  const stopCamera = useCallback(() => {
+  /*const stopCamera = useCallback(() => {
     if (streamRef.current) {
       streamRef.current.getTracks().forEach((t) => t.stop());
       streamRef.current = null;
@@ -115,7 +115,7 @@ const WorkspaceFormPage = () => {
     };
   }, [cameraOpen, facingMode, startCamera, stopCamera]);
 
-const handleCapture = async () => {
+/*const handleCapture = async () => {
     if (!videoRef.current || cameraOpen === null) return;
 
     // 1. Ambil data Lokasi & Waktu
@@ -191,7 +191,7 @@ const handleCapture = async () => {
       "image/jpeg",
       0.9,
     );
-  };
+  };*/
 
   useEffect(() => {
     if (isEditing && !initialState) {
