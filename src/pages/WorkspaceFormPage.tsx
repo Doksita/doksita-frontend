@@ -193,6 +193,26 @@ const WorkspaceFormPage = () => {
     );
   };*/
 
+{/* Ganti UI Kamera Custom dengan ini */}
+<div className="mt-4">
+  <label className="flex items-center justify-center gap-2 w-full p-4 bg-brand text-white rounded-xl font-bold cursor-pointer">
+    <span>📸 Ambil Foto dari Kamera HP</span>
+    <input 
+      type="file" 
+      accept="image/*" 
+      capture="environment" 
+      className="hidden" 
+      onChange={(e) => {
+        const file = e.target.files?.[0];
+        if (file) {
+          handlePhotoChange(cameraOpen, file); // Sesuaikan nama fungsinya
+        }
+      }} 
+    />
+  </label>
+</div>
+
+  
   useEffect(() => {
     if (isEditing && !initialState) {
       const fetchWorkspace = async () => {
