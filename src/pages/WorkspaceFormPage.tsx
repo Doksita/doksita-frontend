@@ -115,7 +115,61 @@ const WorkspaceFormPage = () => {
     };
   }, [cameraOpen, facingMode, startCamera, stopCamera]);
 
-  const handleCapture = () => {
+const handleCapture = async () => {
+    if (!videoRef.current || cameraOpen === null) return;
+
+    // 1. Ambil data Lokasi & Waktu
+    let locationText = "Mencari Lokasi...";
+    try {
+      const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+      locationText = `Lat: ${pos.coords.latitude.toFixed(6)}, Lng: ${pos.coords.longitude.toFixed(6)}`;
+    } catch (error) {
+      locationText = "Lokasi tidak diizinkan";
+    }
+    
+    const timeText = new Date().toLocaleString('id-ID'); // Format waktu Indonesia
+
+    const video = videoRef.current;
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext("2d")!;
+
+    // 2. Gambar foto asli dari kamera ke canvas
+    ctx.drawImage(video, 0, 0);
+
+    // 3. TAMBAHKAN TULISAN DI ATAS FOTO
+    // Pengaturan Gaya Tulisan
+    const fontSize = Math.floor(canvas.width / 30); // Ukuran font proporsional dengan lebar foto
+    ctx.font = `${fontSize}px Arial`;
+    ctx.fillStyle = "yellow"; // Warna tulisan kuning agar kontras
+    ctx.shadowColor = "black"; // Tambah bayangan hitam agar tulisan terbaca di latar terang
+    ctx.shadowBlur = 5;
+
+    // Gambar tulisan di pojok kiri bawah
+    // Memberi jarak 20px dari bawah (canvas.height)
+    ctx.fillText(locationText, 20, canvas.height - (fontSize * 1.5)); 
+    ctx.fillText(timeText, 20, canvas.height - 20);
+
+    // 4. Proses menjadi File
+    canvas.toBlob(
+      (blob) => {
+        if (blob) {
+          const file = new File([blob], `DOKSITA-${Date.now()}.jpg`, {
+            type: "image/jpeg",
+          });
+          handlePhotoChange(cameraOpen, file);
+        }
+        stopCamera();
+        setCameraOpen(null);
+      },
+      "image/jpeg",
+      0.9
+    );
+  };
+  //const handleCapture = () => {
     if (!videoRef.current || cameraOpen === null) return;
     const video = videoRef.current;
     const canvas = document.createElement("canvas");
