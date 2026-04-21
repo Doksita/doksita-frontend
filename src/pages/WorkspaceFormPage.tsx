@@ -115,7 +115,7 @@ const WorkspaceFormPage = () => {
     };
   }, [cameraOpen, facingMode, startCamera, stopCamera]);
 
-const handleCapture = async () => {
+/*const handleCapture = async () => {
     if (!videoRef.current || cameraOpen === null) return;
 
     // 1. Ambil data Lokasi & Waktu
@@ -168,8 +168,9 @@ const handleCapture = async () => {
       "image/jpeg",
       0.9
     );
-  };
-  /*const handleCapture = () => {
+  };*/
+  
+  const handleCapture = () => {
     if (!videoRef.current || cameraOpen === null) return;
     const video = videoRef.current;
     const canvas = document.createElement("canvas");
@@ -191,7 +192,7 @@ const handleCapture = async () => {
       "image/jpeg",
       0.9,
     );
-  };*/
+  };
 
   useEffect(() => {
     if (isEditing && !initialState) {
