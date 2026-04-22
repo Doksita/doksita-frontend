@@ -62,6 +62,7 @@ const WorkspaceFormPage = () => {
   );
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false); // <--- Tambahkan ini
   const [loading, setLoading] = useState(isEditing && !initialState);
   const [actionSheet, setActionSheet] = useState<number | null>(null);
   const [cameraOpen, setCameraOpen] = useState<number | null>(null);
@@ -348,6 +349,25 @@ const WorkspaceFormPage = () => {
         });
       }
 
+      
+// --- TAMBAHKAN KODE INI ---
+    setShowSuccess(true); // Munculkan notifikasi
+    
+    setTimeout(() => {
+      setShowSuccess(false);
+      navigate(backPath); // Pindah halaman setelah 1.5 detik
+    }, 1500);
+    // -------------------------
+
+  } catch (err: any) {
+    setSaveError(err.response?.data?.message || "Gagal menyimpan");
+    setSaving(false); // Set false di sini agar tombol bisa ditekan lagi jika error
+  }
+  // Hapus setSaving(false) dari finally agar tombol tetap "Menyimpan..." 
+  // saat notifikasi sukses muncul (mencegah double click).
+};
+
+  
       navigate(backPath);
     } catch (err: any) {
       setSaveError(err.response?.data?.message || "Gagal menyimpan");
@@ -396,6 +416,25 @@ const WorkspaceFormPage = () => {
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       {/* Back button */}
+
+{/* --- COPY DARI SINI --- */}
+    {showSuccess && (
+      <div className="fixed top-5 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-md animate-[slideDown_0.3s_ease-out]">
+        <div className="bg-emerald-500 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 border border-emerald-400">
+          <div className="bg-white/20 p-1.5 rounded-full">
+             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+             </svg>
+          </div>
+          <div>
+            <p className="font-bold text-sm">Berhasil!</p>
+            <p className="text-xs opacity-90">Data dokumentasi telah diperbarui.</p>
+          </div>
+        </div>
+      </div>
+    )}
+    {/* --- SAMPAI SINI --- */}
+      
       <button
         onClick={() => navigate(backPath)}
         className="flex items-center gap-1 text-sm text-brand hover:text-brand-dark font-medium mb-6 cursor-pointer"
