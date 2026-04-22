@@ -75,12 +75,23 @@ const WorkspaceFormPage = () => {
 
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-  const stopCamera = useCallback(() => {
+
+  const stopCamera = () => {
+  if (videoRef.current && videoRef.current.srcObject) {
+    const stream = videoRef.current.srcObject as MediaStream;
+    const tracks = stream.getTracks();
+    // Mematikan SEMUA track (video/audio) agar hardware kamera mati total
+    tracks.forEach(track => track.stop());
+    videoRef.current.srcObject = null;
+  }
+};
+
+  /*const stopCamera = useCallback(() => {
     if (streamRef.current) {
       streamRef.current.getTracks().forEach((t) => t.stop());
       streamRef.current = null;
     }
-  }, []);
+  }, []);*/
 
   const startCamera = useCallback(
     async (facing: "environment" | "user") => {
@@ -114,6 +125,68 @@ const WorkspaceFormPage = () => {
       if (cameraOpen === null) stopCamera();
     };
   }, [cameraOpen, facingMode, startCamera, stopCamera]);
+
+
+  
+  const handleCapture = async () => {
+  if (!videoRef.current || cameraOpen === null) return;
+
+  // 1. Ambil data Lokasi & Waktu (Gunakan High Accuracy agar data tanah akurat)
+  let locationText = "Mencari Lokasi...";
+  try {
+    const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, {
+        enableHighAccuracy: true, // Tambahkan ini agar koordinat akurat
+        timeout: 5000
+      });
+    });
+    locationText = `Lat: ${pos.coords.latitude.toFixed(6)}, Lng: ${pos.coords.longitude.toFixed(6)}`;
+  } catch (error) {
+    locationText = "Lokasi tidak diizinkan";
+  }
+  
+  const timeText = new Date().toLocaleString('id-ID');
+
+  const video = videoRef.current;
+  const canvas = document.createElement("canvas");
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  const ctx = canvas.getContext("2d")!;
+
+  // 2. Gambar foto asli
+  ctx.drawImage(video, 0, 0);
+
+  // 3. Tambahkan Tulisan (Watermark)
+  const fontSize = Math.floor(canvas.width / 30);
+  ctx.font = `${fontSize}px Arial`;
+  ctx.fillStyle = "yellow";
+  ctx.shadowColor = "black";
+  ctx.shadowBlur = 5;
+
+  ctx.fillText(locationText, 20, canvas.height - (fontSize * 1.5)); 
+  ctx.fillText(timeText, 20, canvas.height - 20);
+
+  // 4. Proses menjadi File & Reset Kamera (Bagian Krusial)
+  canvas.toBlob(
+    (blob) => {
+      if (blob) {
+        const file = new File([blob], `DOKSITA-${Date.now()}.jpg`, {
+          type: "image/jpeg",
+        });
+        
+        // Kirim file ke slot yang sedang terbuka (1, 2, 3, atau 4)
+        handlePhotoChange(cameraOpen, file);
+      }
+      
+      // PERBAIKAN: Pastikan stopCamera dijalankan SEBELUM setCameraOpen(null)
+      // agar browser benar-benar melepaskan hardware kamera
+      stopCamera(); 
+      setCameraOpen(null); 
+    },
+    "image/jpeg",
+    0.9
+  );
+};
 
 /*const handleCapture = async () => {
     if (!videoRef.current || cameraOpen === null) return;
@@ -170,7 +243,7 @@ const WorkspaceFormPage = () => {
     );
   };*/
   
-  const handleCapture = () => {
+  /*const handleCapture = () => {
     if (!videoRef.current || cameraOpen === null) return;
     const video = videoRef.current;
     const canvas = document.createElement("canvas");
@@ -192,7 +265,7 @@ const WorkspaceFormPage = () => {
       "image/jpeg",
       0.9,
     );
-  };
+  };*/
 
   useEffect(() => {
     if (isEditing && !initialState) {
