@@ -82,7 +82,7 @@ const WorkspacePage = () => {
                 
                 {ws.no_berkas && (
                   <p className="text-xs text-brand font-medium mb-1">
-                    No. Berkas : {ws.no_berkas}
+                    N. Berkas : {ws.no_berkas}
                   </p>
                 )}
                 <p className="text-xs text-gray-400 mb-3">
