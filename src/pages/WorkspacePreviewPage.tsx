@@ -286,7 +286,7 @@ const WorkspacePreviewPage = () => {
                       className="text-xs font-semibold text-gray-800 absolute"
                       style={{ top: "12px", right: "16px" }}
                     >
-                      No Berkas : {data.noBerkas}
+                      No. Berkas : {data.noBerkas}
                     </p>
                   )}
 
