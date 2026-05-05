@@ -43,6 +43,9 @@ export function useWorkspaces() {
       navigate("/workspace/preview", {
         state: {
           judul: data.judul,
+          NamaPemohon: data.Nama_Pemohon,
+          NomorAlasHak: data.Nomor_Alas_Hak,
+          Lokasi: data.Lokasi,
           photos: data.photos.map((p: any) => ({
             preview: p.foto_path
               ? p.foto_path.startsWith("http")
