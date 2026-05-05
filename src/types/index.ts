@@ -1,6 +1,9 @@
 export interface Workspace {
   id: number;
   judul: string;
+  Nama_Pemohon: string;
+  Nomor_Alas_Hak: string;
+  Lokasi: string;
   no_berkas: string;
   catatan: string;
   keterangan_atas: string;
