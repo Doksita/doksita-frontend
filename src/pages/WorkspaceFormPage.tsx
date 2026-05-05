@@ -483,7 +483,7 @@ const WorkspaceFormPage = () => {
         {/* No Berkas */}
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-            No Berkas
+            No. Berkas
           </label>
           <input
             type="text"
