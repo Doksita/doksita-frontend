@@ -325,21 +325,34 @@ const WorkspacePreviewPage = () => {
                     </div>
                   )}
 
-                   {page.showTitle && (
+                   {page.showNamaPemohon && data.NamaPemohon && (
                     <div className="mt-1 mb-6 text-left">
                       {/* Menggunakan grid untuk menyejajarkan titik dua */}
                       <div className="grid grid-cols-[120px_auto] gap-x-2 text-sm font-semibold tracking-wide">
                         <span>Nama Pemohon</span>
                         <span>: {data.NamaPemohon}</span>
-                        
+                      </div>
+                    </div>
+                    )}
+                   {page.showNomorAlasHak && data.NomorAlasHak && (
+                    <div className="mt-1 mb-6 text-left">
+                      {/* Menggunakan grid untuk menyejajarkan titik dua */}
+                      <div className="grid grid-cols-[120px_auto] gap-x-2 text-sm font-semibold tracking-wide">
                         <span>No. Alas Hak</span>
                         <span>: {data.NomorAlasHak}</span>
-                        
+                      </div>
+                    </div>
+                    )}
+                     {page.showLokasi && data.Lokasi && (
+                    <div className="mt-1 mb-6 text-left">
+                      {/* Menggunakan grid untuk menyejajarkan titik dua */}
+                      <div className="grid grid-cols-[120px_auto] gap-x-2 text-sm font-semibold tracking-wide">
                         <span>Lokasi</span>
                         <span>: {data.Lokasi}</span>
                       </div>
                     </div>
-                  )}
+                    )}
+                  
                   
                   {page.photoRows.length > 0 && (
                     <div className="grid grid-cols-2 gap-6 mb-8">
