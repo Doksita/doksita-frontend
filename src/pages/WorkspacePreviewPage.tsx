@@ -122,6 +122,9 @@ const WorkspacePreviewPage = () => {
       showTitle: boolean;
       photoRows: PhotoData[][];
       showCatatan: boolean;
+      showNamaPemohon: boolean;  // Tambahkan ini
+      showNomorAlasHak: boolean; // Tambahkan ini
+      showLokasi: boolean;       // Tambahkan ini
     }[] = [];
     let usedH = headerH + titleH; // page 1 starts with header + title
     let currentRows: PhotoData[][] = [];
@@ -136,6 +139,9 @@ const WorkspacePreviewPage = () => {
           showTitle: isFirstPage,
           photoRows: [...currentRows],
           showCatatan: false,
+          showNamaPemohon: isFirstPage, // Set nilai
+          showNomorAlasHak: isFirstPage, // Set nilai
+          showLokasi: isFirstPage,       // Se
         });
         isFirstPage = false;
         usedH = 0;
@@ -157,12 +163,18 @@ const WorkspacePreviewPage = () => {
         showTitle: isFirstPage,
         photoRows: [...currentRows],
         showCatatan: false,
+        showNamaPemohon: isFirstPage,
+        showNomorAlasHak: isFirstPage,
+        showLokasi: isFirstPage,
       });
       result.push({
         showHeader: false,
         showTitle: false,
         photoRows: [],
         showCatatan: true,
+        showNamaPemohon: false,
+        showNomorAlasHak: false,
+        showLokasi: false,
       });
     } else {
       result.push({
@@ -170,6 +182,9 @@ const WorkspacePreviewPage = () => {
         showTitle: isFirstPage,
         photoRows: [...currentRows],
         showCatatan: !!data.catatan,
+        showNamaPemohon: isFirstPage,
+        showNomorAlasHak: isFirstPage,
+        showLokasi: isFirstPage,
       });
     }
 
@@ -325,21 +340,33 @@ const WorkspacePreviewPage = () => {
                     </div>
                   )}
 
-                  {page.showTitle && (
+                   {page.showNamaPemohon && data.NamaPemohon && (
                     <div className="mt-1 mb-6 text-left">
                       {/* Menggunakan grid untuk menyejajarkan titik dua */}
                       <div className="grid grid-cols-[120px_auto] gap-x-2 text-sm font-semibold tracking-wide">
                         <span>Nama Pemohon</span>
-                        <span>: {data.namapemohon}</span>
-                        
-                        <span>No. Alas Hak</span>
-                        <span>: {data.nomoralashak}</span>
-                        
-                        <span>Lokasi</span>
-                        <span>: {data.lokasi}</span>
+                        <span>: {data.NamaPemohon}</span>
                       </div>
                     </div>
-                  )}
+                    )}
+                   {page.showNomorAlasHak && data.NomorAlasHak && (
+                    <div className="mt-1 mb-6 text-left">
+                      {/* Menggunakan grid untuk menyejajarkan titik dua */}
+                      <div className="grid grid-cols-[120px_auto] gap-x-2 text-sm font-semibold tracking-wide">
+                        <span>No. Alas Hak</span>
+                        <span>: {data.NomorAlasHak}</span>
+                      </div>
+                    </div>
+                    )}
+                     {page.showLokasi && data.Lokasi && (
+                    <div className="mt-1 mb-6 text-left">
+                      {/* Menggunakan grid untuk menyejajarkan titik dua */}
+                      <div className="grid grid-cols-[120px_auto] gap-x-2 text-sm font-semibold tracking-wide">
+                        <span>Lokasi</span>
+                        <span>: {data.Lokasi}</span>
+                      </div>
+                    </div>
+                    )}
                   
                   
                   {page.photoRows.length > 0 && (
