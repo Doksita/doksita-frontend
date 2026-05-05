@@ -277,9 +277,9 @@ const WorkspaceFormPage = () => {
           const res = await api.get(`/workspaces/${id}`);
           const data = res.data;
           setJudul(data.judul);
-          setNamaPemohon(data.Nama_Pemohon || "")
-          setNomorAlasHak(data.Nomor_Alas_Hak || "");
-          setLokasi(data.Lokasi || "");
+          setNamaPemohon(data.Nama_Pemohon);
+          setNomorAlasHak(data.Nomor_Alas_Hak);
+          setLokasi(data.Lokasi);
           setNoBerkas(data.no_berkas || "");
           setCatatan(data.catatan || "");
           setUkuranKertas(data.ukuran_kertas || "A4");
@@ -666,6 +666,9 @@ const WorkspaceFormPage = () => {
                 navigate("/workspace/preview", {
                   state: {
                     judul,
+                    NamaPemohon,
+                    NomorAlasHak,
+                    Lokasi,
                     photos: photos.map((p) => ({
                       preview: p.preview,
                       keterangan: p.keterangan,
@@ -673,9 +676,6 @@ const WorkspaceFormPage = () => {
                       posY: p.posY,
                       existingPath: p.existingPath || null,
                     })),
-                    NamaPemohon,
-                    NomorAlasHak,
-                    Lokasi,
                     noBerkas,
                     catatan,
                     ukuranKertas,
