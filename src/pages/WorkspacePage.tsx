@@ -63,22 +63,23 @@ const WorkspacePage = () => {
                 </h3>
 
 
+                {ws.nama_pemohon && (
                   <p className="text-xs text-brand font-medium mb-1">
-                    Nama Pemohon: {ws.Nama_Pemohon}
+                    Nama Pemohon: {ws.nama_pemohon}
                   </p>
-                
+                )}
 
-
+                {ws.nomor_alas_hak && (
                   <p className="text-xs text-brand font-medium mb-1">
-                    No. Alas hak: {ws.Nomor_Alas_Hak}
+                    No Alas hak: {ws.nomor_alas_hak}
                   </p>
-                
+                )}
 
-
+                {ws.lokasi && (
                   <p className="text-xs text-brand font-medium mb-1">
-                    Lokasi: {ws.Lokasi}
+                    Lokasi: {ws.lokasi}
                   </p>
-                
+                )}                
                 
                 {ws.no_berkas && (
                   <p className="text-xs text-brand font-medium mb-1">
