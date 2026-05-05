@@ -301,7 +301,7 @@ const WorkspacePreviewPage = () => {
                       className="text-xs font-semibold text-gray-800 absolute"
                       style={{ top: "12px", right: "16px" }}
                     >
-                      No. Berkas : {data.noBerkas}
+                      NB : {data.noBerkas}
                     </p>
                   )}
 
@@ -340,20 +340,19 @@ const WorkspacePreviewPage = () => {
                     </div>
                   )}
 
-                   {page.showNamaPemohon && data.NamaPemohon && (
-                    <div className="mt-1 mb-6 text-left">
-                      {/* Menggunakan grid untuk menyejajarkan titik dua */}
-                      <div className="grid grid-cols-[120px_auto] gap-x-2 text-sm font-semibold tracking-wide">
-                        <span>Nama Pemohon</span>
-                        <span>: {data.NamaPemohon}</span>
+                    {page.showNamaPemohon && data.NamaPemohon && (
+                      <div className="mt-1 mb-1 text-left">
+                        <div className="grid grid-cols-[120px_auto] gap-x-2 text-sm tracking-wide">
+                          <span className="font-semibold">Nama Pemohon</span>
+                          <span className="font-normal">: {data.NamaPemohon}</span>
+                        </div>
                       </div>
-                    </div>
                     )}
                    {page.showNomorAlasHak && data.NomorAlasHak && (
                     <div className="mt-1 mb-6 text-left">
                       {/* Menggunakan grid untuk menyejajarkan titik dua */}
                       <div className="grid grid-cols-[120px_auto] gap-x-2 text-sm font-semibold tracking-wide">
-                        <span>No. Alas Hak</span>
+                        <span>Nomor Alas Hak</span>
                         <span>: {data.NomorAlasHak}</span>
                       </div>
                     </div>
