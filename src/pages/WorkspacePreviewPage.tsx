@@ -12,6 +12,9 @@ interface PhotoData {
 
 interface WorkspaceData {
   judul: string;
+  NamaPemohon?: string;
+  NomorAlasHak?: string;
+  Lokasi?: string;
   noBerkas?: string;
   photos: PhotoData[];
   catatan: string;
@@ -314,7 +317,7 @@ const WorkspacePreviewPage = () => {
                   )}
 
                   {page.showTitle && (
-                    <div className="mt-6 mb-6 text-center">
+                    <div className="mt-6 mb-4 text-center">
                       <h2 className="text-lg font-bold uppercase tracking-wide">
                         {data.judul ||
                           "KONDISI PENGGUNAAN TANAH YANG DI MOHONKAN"}
@@ -322,6 +325,22 @@ const WorkspacePreviewPage = () => {
                     </div>
                   )}
 
+                   {page.showTitle && (
+                    <div className="mt-1 mb-6 text-left">
+                      {/* Menggunakan grid untuk menyejajarkan titik dua */}
+                      <div className="grid grid-cols-[120px_auto] gap-x-2 text-sm font-semibold tracking-wide">
+                        <span>Nama Pemohon</span>
+                        <span>: {data.NamaPemohon}</span>
+                        
+                        <span>No. Alas Hak</span>
+                        <span>: {data.NomorAlasHak}</span>
+                        
+                        <span>Lokasi</span>
+                        <span>: {data.Lokasi}</span>
+                      </div>
+                    </div>
+                  )}
+                  
                   {page.photoRows.length > 0 && (
                     <div className="grid grid-cols-2 gap-6 mb-8">
                       {page.photoRows.flat().map((photo, i) => (
