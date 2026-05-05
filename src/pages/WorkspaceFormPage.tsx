@@ -40,6 +40,9 @@ const WorkspaceFormPage = () => {
   const backPath = fromDocumentation ? "/documentation" : "/workspace";
 
   const [judul, setJudul] = useState(initialState?.judul || "");
+  const [NamaPemohon, setNamaPemohon] = useState(initialState?.NamaPemohon || "");
+  const [NomorAlasHak, setNomorAlasHak] = useState(initialState?.NomorAlasHak || "");
+  const [Lokasi, setLokasi] = useState(initialState?.Lokasi || "");
   const [noBerkas, setNoBerkas] = useState(initialState?.noBerkas || "");
   const [photos, setPhotos] = useState<PhotoSlot[]>(
     initialState?.photos
@@ -274,6 +277,9 @@ const WorkspaceFormPage = () => {
           const res = await api.get(`/workspaces/${id}`);
           const data = res.data;
           setJudul(data.judul);
+          setNamaPemohon(data.Nama_Pemohon || "")
+          setNomorAlasHak(data.Nomor_Alas_Hak || "");
+          setLokasi(data.Lokasi || "");
           setNoBerkas(data.no_berkas || "");
           setCatatan(data.catatan || "");
           setUkuranKertas(data.ukuran_kertas || "A4");
@@ -318,6 +324,9 @@ const WorkspaceFormPage = () => {
     try {
       const formData = new FormData();
       formData.append("judul", judul);
+      formData.append("Nama_Pemohon", NamaPemohon);
+      formData.append("Nomor_Alas_Hak", NomorAlasHak);
+      formData.append("Lokasi", Lokasi);
       formData.append("no_berkas", noBerkas);
       formData.append("catatan", catatan);
       formData.append("ukuran_kertas", ukuranKertas);
@@ -428,6 +437,49 @@ const WorkspaceFormPage = () => {
           />
         </div>
 
+
+        {/* Nama Pemohon */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+            Nama Pemohon
+          </label>
+          <input
+            type="text"
+            placeholder="Masukan Nama Pemohon"
+            value={NamaPemohon}
+            onChange={(e) => setNamaPemohon(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-brand focus:ring-1 focus:ring-brand"
+          />
+        </div>
+
+        {/* No Alas Hak */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+            Nomor Alas Hak
+          </label>
+          <input
+            type="text"
+            placeholder="Masukan Nomor Alas Hak"
+            value={NomorAlasHak}
+            onChange={(e) => setNomorAlasHak(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-brand focus:ring-1 focus:ring-brand"
+          />
+        </div>
+
+        {/* Lokasi */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+            Lokasi
+          </label>
+          <input
+            type="text"
+            placeholder="Masukan Lokasi"
+            value={Lokasi}
+            onChange={(e) => setLokasi(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-brand focus:ring-1 focus:ring-brand"
+          />
+        </div>
+        
         {/* No Berkas */}
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-1.5">
@@ -621,6 +673,9 @@ const WorkspaceFormPage = () => {
                       posY: p.posY,
                       existingPath: p.existingPath || null,
                     })),
+                    NamaPemohon,
+                    NomorAlasHak,
+                    Lokasi,
                     noBerkas,
                     catatan,
                     ukuranKertas,
