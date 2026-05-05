@@ -301,7 +301,7 @@ const WorkspacePreviewPage = () => {
                       className="text-xs font-semibold text-gray-800 absolute"
                       style={{ top: "12px", right: "16px" }}
                     >
-                      NB : {data.noBerkas}
+                      No. Berkas : {data.noBerkas}
                     </p>
                   )}
 
@@ -348,26 +348,23 @@ const WorkspacePreviewPage = () => {
                         </div>
                       </div>
                     )}
-                   {page.showNomorAlasHak && data.NomorAlasHak && (
-                    <div className="mt-1 mb-6 text-left">
-                      {/* Menggunakan grid untuk menyejajarkan titik dua */}
-                      <div className="grid grid-cols-[120px_auto] gap-x-2 text-sm font-semibold tracking-wide">
-                        <span>Nomor Alas Hak</span>
-                        <span>: {data.NomorAlasHak}</span>
+                    {page.showNomorAlasHak && data.NomorAlasHak && (
+                      <div className="mt-1 mb-1 text-left">
+                        <div className="grid grid-cols-[120px_auto] gap-x-2 text-sm tracking-wide">
+                          <span className="font-semibold">No. Alas Hak</span>
+                          <span className="font-normal">: {data.NomorAlasHak}</span>
+                        </div>
                       </div>
-                    </div>
                     )}
-                     {page.showLokasi && data.Lokasi && (
-                    <div className="mt-1 mb-6 text-left">
-                      {/* Menggunakan grid untuk menyejajarkan titik dua */}
-                      <div className="grid grid-cols-[120px_auto] gap-x-2 text-sm font-semibold tracking-wide">
-                        <span>Lokasi</span>
-                        <span>: {data.Lokasi}</span>
+                    {page.showLokasi && data.Lokasi && (
+                      <div className="mt-1 mb-6 text-left">
+                        <div className="grid grid-cols-[120px_auto] gap-x-2 text-sm tracking-wide">
+                          <span className="font-semibold">Lokasi</span>
+                          <span className="font-normal">: {data.Lokasi}</span>
+                        </div>
                       </div>
-                    </div>
                     )}
-                  
-                  
+                                    
                   {page.photoRows.length > 0 && (
                     <div className="grid grid-cols-2 gap-6 mb-8">
                       {page.photoRows.flat().map((photo, i) => (
