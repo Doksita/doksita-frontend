@@ -59,11 +59,13 @@ const DocumentationPage = () => {
 
                 <div className="flex items-center gap-2 ml-4 shrink-0">
                   <button
-                    onClick={() =>
-                      /*navigate(`/workspace/edit/${ws.id}`, {
-                        state: { fromDocumentation: true },*/
+                    onClick={() => {
+                      /*
+                      navigate(`/workspace/edit/${ws.id}`, {
+                        state: { fromDocumentation: true },
                       })
-                    }
+                      */
+                    }}
                     className="w-9 h-9 flex items-center justify-center rounded-full bg-accent-light hover:bg-emerald-200 text-accent-dark transition-colors cursor-pointer"
                     title="Edit"
                   >
