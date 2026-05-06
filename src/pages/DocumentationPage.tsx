@@ -1,8 +1,8 @@
 import { useWorkspaces } from "../hooks/useWorkspaces";
-import { DocumentIcon, EditIcon, TrashIcon } from "../components/icons";
+import { DocumentIcon, /*EditIcon,*/ TrashIcon } from "../components/icons";
 
 const DocumentationPage = () => {
-  const { workspaces, loading, handleDelete, handleOpen, navigate } =
+  const { workspaces, loading, handleDelete, handleOpen, /*navigate*/ } =
     useWorkspaces();
 
   return (
@@ -58,13 +58,27 @@ const DocumentationPage = () => {
                 </button>
 
               <div className="flex items-center gap-2 ml-4 shrink-0">
-
-                  <button
-                    onClick={() => handleDelete(ws.id)}
-                    className="w-9 h-9 flex items-center justify-center rounded-full bg-danger-light hover:bg-red-200 text-danger transition-colors cursor-pointer"
-                    title="Hapus"
-                  >
-                    <TrashIcon />
+                {/* Tombol Edit disembunyikan sementara agar tidak error dan tidak bisa diklik */}
+                {/* 
+                <button
+                  onClick={() =>
+                    navigate(`/workspace/edit/${ws.id}`, {
+                      state: { fromDocumentation: true },
+                    })
+                  }
+                  className="w-9 h-9 flex items-center justify-center rounded-full bg-accent-light hover:bg-emerald-200 text-accent-dark transition-colors cursor-pointer"
+                  title="Edit"
+                >
+                  <EditIcon />
+                </button> 
+                */}
+              
+                <button
+                  onClick={() => handleDelete(ws.id)}
+                  className="w-9 h-9 flex items-center justify-center rounded-full bg-danger-light hover:bg-red-200 text-danger transition-colors cursor-pointer"
+                  title="Hapus"
+                >
+                  <TrashIcon />
                 </button>
               </div>
               </div>
